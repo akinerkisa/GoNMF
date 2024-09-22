@@ -16,6 +16,7 @@ import (
 var (
 	verbose bool
 	ip      string
+	urlStr  string
 )
 
 func init() {
@@ -29,23 +30,25 @@ func init() {
 	░▒   ▒ ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░ ▒░   ▒ ▒  ▒ ░   
 	░   ░   ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░░   ░ ▒░ ░     
 	░ ░   ░ ░ ░ ░ ▒     ░   ░ ░    ░   ░ ░  ░ ░   
-		░     ░ ░           ░          ░         v0.2 https://github.com/akinerk/GoNMF
+		░     ░ ░           ░          ░         v0.2 https://github.com/akinerkisa/GoNMF
 
 	`)
 
 	flag.StringVar(&ip, "ip", "127.0.0.1", "Write IP Address")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose on/off")
+	flag.BoolVar(&verbose, "v", false, "Verbose on/off (shorthand)")
+	flag.StringVar(&urlStr, "url", "", "Write URL")
+	flag.StringVar(&urlStr, "u", "", "Write URL (shorthand)")
 }
+
 func main() {
-	urlPtr := flag.String("url", "", "Write URL")
 	flag.Parse()
 
-	if *urlPtr == "" {
+	if urlStr == "" {
 		fmt.Println("URL is required")
 		return
 	}
 
-	urlStr := *urlPtr
 	parsedURL, err := url.Parse(urlStr)
 	if err != nil {
 		fmt.Println("Invalid URL")
@@ -410,7 +413,6 @@ func getIP(urlStr string) {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
-
 	resp, err := client.Do(req)
 	if err != nil {
 		if strings.Contains(err.Error(), "SSL") {
