@@ -1,6 +1,6 @@
 # GoNMF
 
-GoNMF is a tool that tries various techniques to bypass forbidden(403) pages on websites and presents their results to the user. Now with GO.
+NoMoreForbidden is a tool that tries various techniques to bypass forbidden(403) pages on websites and presents their results to the user. Now with GO.
 
 ## Installation
 <code>git clone https://github.com/akinerkisa/GoNMF</code>
